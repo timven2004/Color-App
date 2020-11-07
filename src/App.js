@@ -2,6 +2,8 @@ import './App.css';
 import React, {Component} from "react";
 import seedColors from "./seedColors.js"
 import Palette from "./Palette.js"
+import {generatePalette} from "./colorHelpers"
+
 
 class App extends Component{
 	constructor(props){
@@ -9,6 +11,8 @@ class App extends Component{
 	}
 	
 	render(){
+		console.log(generatePalette(seedColors[4]));
+
 		return (
 			<div>
 			

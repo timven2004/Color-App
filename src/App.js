@@ -16,7 +16,7 @@ class App extends Component{
 		return (
 			<div>
 			
-				<Palette palatte={seedColors[4]}/>
+				<Palette palatte={generatePalette(seedColors[4])}/>
 			
 			</div>
 		

@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import ColorBox from "./ColorBox.js"
 import "./Palatte.css"
-import Slider from "rc-slider";
-import 'rc-slider/assets/index.css';
+import Navbar from "./Navbar.js"
 
 class Palatte extends Component{
 	constructor(props){
@@ -10,7 +9,8 @@ class Palatte extends Component{
 		this.state= {
 			level: 500
 		}
-		this.changeLevel=this.changeLevel.bind(this)
+		this.changeLevel=this.changeLevel.bind(this);
+
 	}
 	
 	changeLevel(newLevel = 500){
@@ -30,24 +30,7 @@ class Palatte extends Component{
 		return (
 		<div className="Palette">
 			{/*Navbar goes here*/}
-			<div className="slider">
-			<Slider 
-				min={100} 
-				max={900} 
-				defaultValue={this.state.level} 
-				step={100} 
-				marks={{
-					500: "500"
-				}}
-				ariaValueTextFormatterForHandle = {(value)=>this.changeLevel(value)}
-				trackStyle = {[{"background-color": "transparent"}]}
-				handleStyle	={[{"background-color": "green",
-								"border-color":"green",
-								"outline":"none",				
-			}]}
-				railStyle = {{"height": "8px"}}
-				/>
-			</div>
+			<Navbar level={this.state.level} changeLevel={this.changeLevel}/>
 			<div className="Palette-colors">
 				{/*bunch of color boxes*/}
 				{colorBoxes}

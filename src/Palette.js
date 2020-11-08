@@ -21,10 +21,6 @@ class Palatte extends Component{
 	
 	render(){
 		
-		let marks={
-			500: "500"
-		}
-		
 		const colorBoxes = this.props.palatte.colors[this.state.level].map(color=>{
 			return (<ColorBox background = {color.hex} name={color.name}/>)
 		})
@@ -34,15 +30,24 @@ class Palatte extends Component{
 		return (
 		<div className="Palette">
 			{/*Navbar goes here*/}
+			<div className="slider">
 			<Slider 
 				min={100} 
 				max={900} 
-				step={1} 
 				defaultValue={this.state.level} 
 				step={100} 
-				marks={marks}
+				marks={{
+					500: "500"
+				}}
 				ariaValueTextFormatterForHandle = {(value)=>this.changeLevel(value)}
+				trackStyle = {[{"background-color": "transparent"}]}
+				handleStyle	={[{"background-color": "green",
+								"border-color":"green",
+								"outline":"none",				
+			}]}
+				railStyle = {{"height": "8px"}}
 				/>
+			</div>
 			<div className="Palette-colors">
 				{/*bunch of color boxes*/}
 				{colorBoxes}

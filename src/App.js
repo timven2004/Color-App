@@ -20,11 +20,7 @@ class App extends Component{
 	render(){
 		console.log(generatePalette(seedColors[4]));
 
-		function Child(){
-			let {id}=useParams()
-			return (
-			<Palette palatte={generatePalette(seedColors[id])}/>)
-		}
+
 		
 		return (
 			
@@ -35,9 +31,7 @@ class App extends Component{
 				
 				
 			</Route>
-			<Route exact path="/palette/:id" >
-				<Child/>
-			</Route>
+			<Route exact path="/palette/:id" render={routeProps =>(<Palette palatte={generatePalette(seedColors[routeProps.match.params.id])}/>)} />
 			</Switch>
 			
 			

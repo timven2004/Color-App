@@ -21,7 +21,7 @@ class App extends Component{
 
 		return (
 			<Router>
-			<div>
+			<div >
 			
 				<Palette palatte={generatePalette(seedColors[4])}/>
 			

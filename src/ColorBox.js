@@ -15,14 +15,15 @@ class Palatte extends Component{
 	}
 	
 	handleClick(){
-		this.setState({copyButtonText: "Copied!",
+		this.setState({copyButtonText: 
+						`"Copied!"`,
 					  animate: true});
 	}
 	
 	componentDidUpdate(prevProps,  prevState){
 		if (this.state.copyButtonText !== prevState.copyButtonText && this.state.animate !== prevState.animate){setTimeout(()=>{
 			this.setState({copyButtonText: "Copy",
-						  animate: false})}, 1000)
+						  animate: false})}, 2000)
 	}}
 
 	
@@ -30,12 +31,22 @@ class Palatte extends Component{
 		return (
 		<CopyToClipboard text={this.props.background} >
 		<div className ="ColorBox" style={{background: this.props.background}} onClick={this.handleClick} >
-			<div className="copy-container">
+			{/*<div className="copy-container">*/}
 				<div className="box-content">
 					<span>{this.props.name}</span>
 				</div>
-				<button className={`copy-button ${this.state.animate ? "animate": "none"}` }>{this.state.copyButtonText}</button>
-			</div>
+				<button className=
+					{`copy-button 
+					${this.state.animate ? "animate": "none"}` }
+					>{this.state.copyButtonText}					
+				</button>
+				<div className=
+					{`colorCode 
+					${this.state.animate ? "animate colorCodeShown": "none"}
+					`}
+					>{this.props.background}						
+				</div>
+			{/*</div>*/}
 		<span className="see-more">More</span>	
 		</div>
 		</CopyToClipboard>

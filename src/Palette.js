@@ -56,7 +56,9 @@ class Palatte extends Component{
 				{colorBoxes}
 			</div>
 			{/*footer eventually*/}
-			
+			<footer className="Palette-footer">
+			 {this.props.palatte.paletteName} <span className="emoji">{this.props.palatte.emoji}</span>
+			</footer>
 
 		</div>
 		

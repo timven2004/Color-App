@@ -7,7 +7,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+	useParams
 } from "react-router-dom";
 
 
@@ -19,14 +20,26 @@ class App extends Component{
 	render(){
 		console.log(generatePalette(seedColors[4]));
 
+		function Child(){
+			let {id}=useParams()
+			return (
+			<Palette palatte={generatePalette(seedColors[id])}/>)
+		}
+		
 		return (
-			<Router>
-			<div >
 			
-				<Palette palatte={generatePalette(seedColors[4])}/>
+			<Switch>
+			<Route exact path="/">
+				<h1>App Under Construction and palette list goes here, type in URL as below to access this app, change the last number for changing color palettes:</h1>
+					https://reactcourse-qkksa.run.goorm.io/palette/1
+				
+				
+			</Route>
+			<Route exact path="/palette/:id" >
+				<Child/>
+			</Route>
+			</Switch>
 			
-			</div>
-			</Router>
 			
 		)
 	}

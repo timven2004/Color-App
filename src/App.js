@@ -10,28 +10,29 @@ import {
   Link,
 	useParams
 } from "react-router-dom";
-
+import ShowingPalette from "./ShowingPalette.js";
+import ShowAllPalettes from "./ShowAllPalettes.js"
 
 class App extends Component{
 	constructor(props){
 		super(props)
+		this.state={
+			existingPalettes: seedColors
+		}
 	}
 	
 	render(){
-		console.log(generatePalette(seedColors[4]));
-
 
 		
 		return (
 			
 			<Switch>
 			<Route exact path="/">
-				<h1>App Under Construction and palette list goes here, type in URL as below to access this app, change the last number for changing color palettes:</h1>
-					https://reactcourse-qkksa.run.goorm.io/palette/1
-				
-				
+				<ShowAllPalettes existingPalettes={this.state.existingPalettes}/>
 			</Route>
-			<Route exact path="/palette/:id" render={routeProps =>(<Palette palatte={generatePalette(seedColors[routeProps.match.params.id])}/>)} />
+			<Route exact path="/palette/:id">
+				<ShowingPalette existingPalettes={this.state.existingPalettes}/>
+			</Route>
 			</Switch>
 			
 			

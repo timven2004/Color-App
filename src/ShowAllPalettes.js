@@ -16,9 +16,15 @@ bodyOfPage:{
 	alignItems:"center",
 	position: "relative",
 	width:"100vw",
-	height:"100vh",
-	backgroundColor: "blue",
+	height:"100%",
+	minHeight:"100vh",
+	backgroundImage: "url('backgroundPicture.jpg')",
+	backgroundColor: "grey",
+	backgroundPosition: "center",
+	backgroundSize: "cover",
+	backgroundRepeat: "no-repeat",
 	color:"white",
+	
 },
 	
 container: {

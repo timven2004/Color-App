@@ -5,37 +5,44 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles ={
 MiniPalette: {
-	width: "200px",
-	height: "200px",
+	width: "95%",
+	height: "95%",
 	display: "flex",
-	flexFlow: "row wrap",
-	margin:"10px",
+	flexFlow: "column",
+	margin:"5px",
 	alignContent: "flex-start",
+	color: "black",
 	
 },
 
 tinyColors: {
 	width:"20%",
-	height:"15%",	
+	height:"25%",	
 },
 
 
 	
 emoji:{
-	
-	
+	color: "black",
 },
 	
 p1:{
 	textDecoration: "none",
 	display: "flex",
 	justifyContent: "space-between",
-	width:"100%",
+	width:"95%",
 	color:"Black",
-	margin:"8px 0px",
+	padding: "3px",
 	},
 
-	
+colorFlakes:{
+	display: "flex",
+	flexFlow: "row wrap",
+	alignContent: "flex-start",
+	width:"100%",
+	flexGrow:"1",
+	backgroundColor:"grey",
+}
 }
 
 
@@ -48,7 +55,7 @@ function MiniPalette(props){
 	
 	return(
 		<div className={classes.MiniPalette}>
-		{colorBoxes}
+			<div className={classes.colorFlakes}>{colorBoxes}</div>
 			<div className={classes.p1}>
 				<span className={classes.span1}>{props.palette.paletteName}</span> 
 				<span className={classes.span1}>{props.palette.emoji}</span>

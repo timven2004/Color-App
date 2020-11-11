@@ -1,0 +1,11 @@
+.MiniPalette{
+	width:450px;
+	height:250px;
+	display:flex;
+	flex-flow: row wrap;
+}
+
+.tiny-colors{
+	width:20%;
+	height:25%;
+}

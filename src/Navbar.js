@@ -29,6 +29,7 @@ class Navbar extends Component{
 	render(){
 		return (
 			<header className="Navbar">
+				<div className="leftsideElement">
                 <div className="logo">
                     <Link to ="/">ReactColorPicker</Link>
                 </div>
@@ -55,6 +56,8 @@ class Navbar extends Component{
 						/>
 					</div>
                 </div>
+				</div>
+				
 				<div className="select-container">
 					<FormControl>
 					<Select value={this.state.format}

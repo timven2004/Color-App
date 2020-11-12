@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import MiniPalette from "./MiniPalette.js"
 import { withStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router";
 
 
 const styles ={
@@ -69,10 +70,12 @@ nav:{
 }
 
 
+
 function ShowAllPalettes(props){
-	 
-	const {classes} = props;
 	
+	const {classes} = props;
+	const history = useHistory();
+
 	return(
 	<div className={classes.bodyOfPage}>
 		
@@ -83,9 +86,10 @@ function ShowAllPalettes(props){
 			</nav>
 			<div className={classes.ListOfPalettesContainer}>
 				{props.existingPalettes.map((palette,index)=>(
-				<Link to={`/palette/${index}`} className={classes.eachItem}>
-				<MiniPalette palette={palette}/>
-				</Link>))}
+				<div className={classes.eachItem}>
+				<MiniPalette palette={palette} handleClick={()=>(history.push(`/palette/${index}`)
+)}/>
+				</div>))}
 			</div>
 		</div>
 	</div>

@@ -12,7 +12,7 @@ MiniPalette: {
 	margin:"5px",
 	alignContent: "flex-start",
 	color: "black",
-	
+	cursor: "pointer",
 },
 
 tinyColors: {
@@ -54,7 +54,7 @@ function MiniPalette(props){
 		})
 	
 	return(
-		<div className={classes.MiniPalette}>
+		<div className={classes.MiniPalette} onClick={props.handleClick}>
 			<div className={classes.colorFlakes}>{colorBoxes}</div>
 			<div className={classes.p1}>
 				<span className={classes.span1}>{props.palette.paletteName}</span> 

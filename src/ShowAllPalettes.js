@@ -8,7 +8,7 @@ import {
 import MiniPalette from "./MiniPalette.js"
 import { withStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router";
-
+import backgroundImage from "./asset/backgroundPicture.jpg"
 
 const styles ={
 bodyOfPage:{
@@ -19,7 +19,7 @@ bodyOfPage:{
 	width:"100vw",
 	height:"100%",
 	minHeight:"100vh",
-	backgroundImage: "url('backgroundPicture.jpg')",
+	backgroundImage: `url(${backgroundImage})`,
 	backgroundColor: "grey",
 	backgroundPosition: "center",
 	backgroundSize: "cover",

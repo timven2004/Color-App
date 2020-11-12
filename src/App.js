@@ -33,6 +33,9 @@ class App extends Component{
 			<Route exact path="/palette/:id">
 				<ShowingPalette existingPalettes={this.state.existingPalettes}/>
 			</Route>
+			<Route exact path="/palette/:id/:colorName">
+				<ShowAllPalettes existingPalettes={this.state.existingPalettes}/>
+			</Route>
 			</Switch>
 			
 			

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import "./ColorBox.css"
 import {CopyToClipboard} from "react-copy-to-clipboard";
+import {Link} from "react-router-dom";
 
 class Palatte extends Component{
 	constructor(props){
@@ -46,8 +47,9 @@ class Palatte extends Component{
 					`}
 					>{this.props.background}						
 				</div>
-			{/*</div>*/}
+		<Link to ="/" onCLick={e=>(e.stopPropagation())}>
 		<span className="see-more">More</span>	
+		</Link>
 		</div>
 		</CopyToClipboard>
 		)

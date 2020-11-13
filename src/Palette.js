@@ -38,7 +38,9 @@ class Palette extends Component{
 						background = {color[this.state.format]} 
 						name={color.name} 
 						paletteID={paletteID} 
-						colorID={color.id}/>)
+						colorID={color.id}
+						key={Math.random()}/>
+				  	)
 		})
 		
 	

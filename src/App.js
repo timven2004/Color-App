@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import ShowingPalette from "./ShowingPalette.js";
 import ShowAllPalettes from "./ShowAllPalettes.js"
+import SingleColorPalette from "./SingleColorPalette.js"
 
 class App extends Component{
 	constructor(props){
@@ -34,7 +35,7 @@ class App extends Component{
 				<ShowingPalette existingPalettes={this.state.existingPalettes}/>
 			</Route>
 			<Route exact path="/palette/:id/:colorName">
-				<ShowAllPalettes existingPalettes={this.state.existingPalettes}/>
+				<SingleColorPalette existingPalettes={this.state.existingPalettes}/>
 			</Route>
 			</Switch>
 			

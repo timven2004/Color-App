@@ -56,7 +56,8 @@ function SingleColorPalette(props){
 						name={`${colorName} ${property}`} 
 						paletteID={id} 
 						colorID={colorName}
-						key={Math.random()}/>)			
+						key={Math.random()}
+						showLink={false}/>)			
 	}
 	shadesDisplay.shift();
 	console.log(singlePalette)

@@ -39,7 +39,8 @@ class Palette extends Component{
 						name={color.name} 
 						paletteID={paletteID} 
 						colorID={color.id}
-						key={Math.random()}/>
+						key={Math.random()}
+						showLink={true}/>
 				  	)
 		})
 		

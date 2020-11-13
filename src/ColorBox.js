@@ -10,7 +10,8 @@ class Palatte extends Component{
 		this.componentDidUpdate=this.componentDidUpdate.bind(this);
 		this.state={
 			copyButtonText: "Copy",
-			animate: false
+			animate: false,
+			showLink: true,
 		};
 		
 	}
@@ -47,9 +48,10 @@ class Palatte extends Component{
 					`}
 					>{this.props.background}						
 				</div>
-		<Link to ={`/palette/${this.props.paletteID}/${this.props.colorID}`} onCLick={e=>(e.stopPropagation())}>
+		{this.props.showLink && <Link to ={`/palette/${this.props.paletteID}/${this.props.colorID}`} onCLick={e=>(e.stopPropagation())}>
 		<span className="see-more">More</span>	
-		</Link>
+		</Link>}
+		
 		</div>
 		</CopyToClipboard>
 		)

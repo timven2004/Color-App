@@ -4,7 +4,7 @@ import "./Palatte.css"
 import Navbar from "./Navbar.js"
 import ChangingFormatCover from "./ChangingFormatCover.js"
 
-class Palatte extends Component{
+class Palette extends Component{
 	constructor(props){
 		super(props);
 		this.state= {
@@ -32,9 +32,13 @@ class Palatte extends Component{
 	}
 	
 	render(){
-		
-		const colorBoxes = this.props.palatte.colors[this.state.level].map(color=>{
-			return (<ColorBox background = {color[this.state.format]} name={color.name}/>)
+		const paletteID = this.props.palette.id;
+		const colorBoxes = this.props.palette.colors[this.state.level].map(color=>{
+			return (<ColorBox 
+						background = {color[this.state.format]} 
+						name={color.name} 
+						paletteID={paletteID} 
+						colorID={color.id}/>)
 		})
 		
 	
@@ -57,7 +61,7 @@ class Palatte extends Component{
 			</div>
 			{/*footer eventually*/}
 			<footer className="Palette-footer">
-			 {this.props.palatte.paletteName} <span className="emoji">{this.props.palatte.emoji}</span>
+			 {this.props.palette.paletteName} <span className="emoji">{this.props.palette.emoji}</span>
 			</footer>
 
 		</div>
@@ -66,4 +70,4 @@ class Palatte extends Component{
 	}
 }
 
-export default Palatte;
+export default Palette;

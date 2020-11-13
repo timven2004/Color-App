@@ -47,7 +47,7 @@ class Palatte extends Component{
 					`}
 					>{this.props.background}						
 				</div>
-		<Link to ="/" onCLick={e=>(e.stopPropagation())}>
+		<Link to ={`/palette/${this.props.paletteID}/${this.props.colorID}`} onCLick={e=>(e.stopPropagation())}>
 		<span className="see-more">More</span>	
 		</Link>
 		</div>

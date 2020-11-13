@@ -14,7 +14,7 @@ import Palette from "./Palette.js"
 function ShowingPalette(props){
 	  let { id } = useParams();
 	return(
-	<Palette palatte={generatePalette(props.existingPalettes[id])}/>
+	<Palette palette={generatePalette(props.existingPalettes.find((palette)=>(palette.id===id)))}/>
 	
 	)
 }

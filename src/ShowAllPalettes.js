@@ -86,7 +86,7 @@ function ShowAllPalettes(props){
 			<div className={classes.ListOfPalettesContainer}>
 				{props.existingPalettes.map((palette,index)=>(
 				<div className={classes.eachItem}>
-				<MiniPalette palette={palette} handleClick={()=>(history.push(`/palette/${index}`)
+				<MiniPalette palette={palette} handleClick={()=>(history.push(`/palette/${palette.id}`)
 )}/>
 				</div>))}
 			</div>

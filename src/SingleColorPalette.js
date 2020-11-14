@@ -4,28 +4,44 @@ import chroma from "chroma-js"
 import { withStyles } from '@material-ui/core/styles';
 import ColorBox from "./ColorBox.js"
 import Navbar from "./Navbar.js"
+import { useEffect, useState } from "react";
+import ChangingFormatCover from "./ChangingFormatCover.js"
 
 const styles={
 	
 	allShadesContainer:{
-		width:"100vw",
-		height:"100vh",
+		flex: "1",
 		"& .ColorBox":{
 			width:"20%",
 			height:"50%",
 		}
 	},
-	
-	
+	wholePageContainer:{
+		width:"100vw",
+		height:"100vh",
+		display: "flex",
+		flexFlow:"column",
+	},
+	paletteFooter:{
+		backgroundColor:"white",
+		height:"5vh",
+		display:"flex",
+		justifyContent: "flex-end",
+		alignItems:"center",
+		fontWeight:"bold",
+		fontSize:"1.2rem"
+	}
 	
 }
 
 function SingleColorPalette(props){
 	const {classes} = props;
 	const {id, colorName} = useParams();
-	const palette = props.existingPalettes.find((p)=>(p.id===id));
-	const singleColorCode = palette.colors.find((c)=>(c.name ===colorName)).color;
+	const palette = props.existingPalettes.find((p)=>(p.id==id));
+	const singleColorCode = palette.colors.find((c)=>(c.name.toLowerCase() ==colorName)).color;
 	const singlePalette = GeneratingShades(singleColorCode);
+	const [changingFormat, setChangingFormat] = useState(false);
+	const [format, setFormat] = useState("hex");
 	
 	function getRange(hexColor){
 		return[chroma(hexColor).darken(1.4).hex()]
@@ -44,7 +60,12 @@ function SingleColorPalette(props){
 		let shades = generateScale(colorCode, levels.length).reverse();
 		//assinging the colors to the result Object
 		for (let i=0;i<levels.length;i++){
-			result.colors[levels[i]] = shades[i];}
+			result.colors[levels[i]] = {
+				hex: shades[i],
+				rgb: chroma(shades[i]).css(),
+				rgba: chroma(shades[i]).css().replace("rgb","rgba").replace(")",",1.0)")}
+
+		}
 		return result
 	}
 	
@@ -52,7 +73,7 @@ function SingleColorPalette(props){
 	
 	for(let property in singlePalette.colors){
 		shadesDisplay.push(<ColorBox 
-						background = {singlePalette.colors[property]}
+						background = {singlePalette.colors[property][format]}
 						name={`${colorName} ${property}`} 
 						paletteID={id} 
 						colorID={colorName}
@@ -62,10 +83,32 @@ function SingleColorPalette(props){
 	shadesDisplay.shift();
 	console.log(singlePalette)
 	
+		
+
+	
+	function changingFormatHandler(){
+		setTimeout(()=>{setChangingFormat(false)},2000)
+	}
+
+	function changeFormat(value){
+		setFormat(value); 
+		setChangingFormat(true);
+		changingFormatHandler();
+	}
+
+
+	
 	return(
-		<div>
-			<div>Single Color Palette, {id}, {colorName}, {singleColorCode}, {singlePalette.colors[400]}</div>
+		<div className={classes.wholePageContainer}>
+			<Navbar showAllColors = {false} 				
+				changeFormat = {changeFormat}/>
+			<ChangingFormatCover 
+				changingFormat={changingFormat} 
+				format={format}/>
 			<div className={classes.allShadesContainer}>{shadesDisplay}</div>
+			<footer className={classes.paletteFooter}>
+			 {palette.paletteName} <span className="emoji">{palette.emoji}</span>
+			</footer>
 		</div>
 		
 	)

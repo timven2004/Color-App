@@ -33,7 +33,7 @@ class Navbar extends Component{
                 <div className="logo">
                     <Link to ="/">ReactColorPicker</Link>
                 </div>
-                <div className="slider-container">
+                {this.props.showAllColors && <div className="slider-container">
 					<span>
 					Level: {this.props.level}	
 					</span>
@@ -55,7 +55,7 @@ class Navbar extends Component{
 						railStyle = {{"height": "5px"}}
 						/>
 					</div>
-                </div>
+                </div>}
 				</div>
 				
 				<div className="select-container">

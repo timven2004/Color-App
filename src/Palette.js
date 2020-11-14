@@ -54,7 +54,8 @@ class Palette extends Component{
 			<Navbar 
 				level={this.state.level} 
 				changeLevel={this.changeLevel} 
-				changeFormat = {this.changeFormat}/>
+				changeFormat = {this.changeFormat}
+				showAllColors = {true}/>
 			<ChangingFormatCover 
 				changingFormat={this.state.changingFormat} 
 				format={this.state.format}/>

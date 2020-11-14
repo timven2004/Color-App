@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import "./ColorBox.css"
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import {Link} from "react-router-dom";
+import chroma from "chroma-js";
 
 class Palatte extends Component{
 	constructor(props){
@@ -12,9 +13,12 @@ class Palatte extends Component{
 			copyButtonText: "Copy",
 			animate: false,
 			showLink: true,
+			whiteText: false,
+			blackText: false,
 		};
 		
 	}
+	
 	
 	handleClick(){
 		this.setState({copyButtonText: 
@@ -30,26 +34,38 @@ class Palatte extends Component{
 
 	
 	render(){
+		
+		const luminisity = chroma(this.props.background).luminance();
+		if (luminisity<0.2 && !this.state.whiteText){
+			this.setState({whiteText: true})
+		}
+		if (luminisity>0.65 && !this.state.blackText){
+			this.setState({blackText: true})
+		}
+		
 		return (
 		<CopyToClipboard text={this.props.background} >
 		<div className ="ColorBox" style={{background: this.props.background}} onClick={this.handleClick} >
 			{/*<div className="copy-container">*/}
-				<div className="box-content">
+				<div className={`box-content ${this.state.whiteText? "whiteText": "none"}`}>
 					<span>{this.props.name}</span>
 				</div>
 				<button className=
 					{`copy-button 
-					${this.state.animate ? "animate": "none"}` }
+					${this.state.blackText ? "blackText": "none"}
+					${this.state.animate ? "animate": "none"}
+` }
 					>{this.state.copyButtonText}					
 				</button>
 				<div className=
 					{`colorCode 
 					${this.state.animate ? "animate colorCodeShown": "none"}
+					${this.state.blackText? "blackText":"none"}
 					`}
-					>{this.props.background}						
+					>{this.props.background}					
 				</div>
 		{this.props.showLink && <Link to ={`/palette/${this.props.paletteID}/${this.props.colorID}`} onCLick={e=>(e.stopPropagation())}>
-		<span className="see-more">More</span>	
+		<span className={`see-more ${this.state.blackText? "blackText": "none"}`}>More</span>	
 		</Link>}
 		
 		</div>

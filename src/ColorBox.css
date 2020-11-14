@@ -115,3 +115,11 @@
 	opacity:1;
 	transition:0.2s;
 }
+
+.whiteText{
+	color:white;
+}
+
+.blackText{
+	color:black;
+}

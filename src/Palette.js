@@ -1,8 +1,9 @@
 import React, {Component} from "react";
-import ColorBox from "./ColorBox.js"
-import "./Palatte.css"
-import Navbar from "./Navbar.js"
-import ChangingFormatCover from "./ChangingFormatCover.js"
+import ColorBox from "./ColorBox.js";
+import "./Palatte.css";
+import Navbar from "./Navbar.js";
+import ChangingFormatCover from "./ChangingFormatCover.js";
+import Palettefooter from "./PaletteFooter.js";
 
 class Palette extends Component{
 	constructor(props){
@@ -64,9 +65,7 @@ class Palette extends Component{
 				{colorBoxes}
 			</div>
 			{/*footer eventually*/}
-			<footer className="Palette-footer">
-			 {this.props.palette.paletteName} <span className="emoji">{this.props.palette.emoji}</span>
-			</footer>
+			<Palettefooter paletteName={this.props.palette.paletteName} emoji={this.props.palette.emoji}/>
 
 		</div>
 		

@@ -6,6 +6,7 @@ import ColorBox from "./ColorBox.js"
 import Navbar from "./Navbar.js"
 import { useEffect, useState } from "react";
 import ChangingFormatCover from "./ChangingFormatCover.js"
+import Palettefooter from "./PaletteFooter.js"
 
 const styles={
 	
@@ -106,9 +107,7 @@ function SingleColorPalette(props){
 				changingFormat={changingFormat} 
 				format={format}/>
 			<div className={classes.allShadesContainer}>{shadesDisplay}</div>
-			<footer className={classes.paletteFooter}>
-			 {palette.paletteName} <span className="emoji">{palette.emoji}</span>
-			</footer>
+			<Palettefooter emoji={palette.emoji} paletteName={palette.paletteName}/>	
 		</div>
 		
 	)

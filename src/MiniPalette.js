@@ -1,5 +1,4 @@
-import React, {Component} from "react";
-import ColorBox from "./ColorBox"
+import React from "react";
 // import "./MiniPalette.css"
 import { withStyles } from '@material-ui/core/styles';
 

@@ -1,14 +1,9 @@
 import './App.css';
 import React, {Component} from "react";
 import seedColors from "./seedColors.js"
-import Palette from "./Palette.js"
-import {generatePalette} from "./colorHelpers"
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-	useParams
 } from "react-router-dom";
 import ShowingPalette from "./ShowingPalette.js";
 import ShowAllPalettes from "./ShowAllPalettes.js"

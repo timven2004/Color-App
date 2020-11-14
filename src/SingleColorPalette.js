@@ -7,12 +7,21 @@ import Navbar from "./Navbar.js"
 import { useEffect, useState } from "react";
 import ChangingFormatCover from "./ChangingFormatCover.js"
 import Palettefooter from "./PaletteFooter.js"
+import {
+  Link
+} from "react-router-dom";
 
 const styles={
 	
 	allShadesContainer:{
 		flex: "1",
+		display: "flex",
+		flexFlow: "row wrap",
 		"& .ColorBox":{
+			width:"20%",
+			height:"50%",
+		},
+		"& .goBack":{
 			width:"20%",
 			height:"50%",
 		}
@@ -23,16 +32,26 @@ const styles={
 		display: "flex",
 		flexFlow:"column",
 	},
-	paletteFooter:{
-		backgroundColor:"white",
-		height:"5vh",
-		display:"flex",
-		justifyContent: "flex-end",
-		alignItems:"center",
-		fontWeight:"bold",
-		fontSize:"1.2rem"
-	}
 	
+	goBack:{
+		width:"20%",
+		height:"50%",
+  		justifyContent: "center",
+  		alignItems: "center",
+		display:"flex",
+		background: "black",
+		color:"white",
+		"& span":{
+			padding:"10px",
+			background: "rgba(255,255,255,0.3)",
+			borderRadius:"3px",
+		},
+		"& a":{
+			textDecoration:"none",
+			color:"white",
+
+		}
+	}
 }
 
 function SingleColorPalette(props){
@@ -106,7 +125,13 @@ function SingleColorPalette(props){
 			<ChangingFormatCover 
 				changingFormat={changingFormat} 
 				format={format}/>
-			<div className={classes.allShadesContainer}>{shadesDisplay}</div>
+			<div className={classes.allShadesContainer}>{shadesDisplay}
+				<div className={classes.goBack}>	
+					<Link to ={`/palette/${id}`}>
+						<span>GO BACK</span>
+					</Link>
+</div>
+			</div>
 			<Palettefooter emoji={palette.emoji} paletteName={palette.paletteName}/>	
 		</div>
 		

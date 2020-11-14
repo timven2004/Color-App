@@ -3,9 +3,6 @@ import Slider from "rc-slider";
 import 'rc-slider/assets/index.css';
 import "./Navbar.css"
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 import{Select, MenuItem} from "@material-ui/core";

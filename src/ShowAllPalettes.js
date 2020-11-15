@@ -28,7 +28,8 @@ container: {
 	justifyContent:"flex-start",
 	alignItems:"center",
 	width: "66.6%",
-	maxWidth:"900px"
+	maxWidth:"900px",
+	marginTop:"20px",
 },
 eachItem:{
 	width: "230px",

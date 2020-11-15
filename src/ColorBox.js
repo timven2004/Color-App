@@ -4,7 +4,7 @@ import {CopyToClipboard} from "react-copy-to-clipboard";
 import {Link} from "react-router-dom";
 import chroma from "chroma-js";
 
-class Palatte extends Component{
+class Palette extends Component{
 	constructor(props){
 		super(props);
 		this.handleClick=this.handleClick.bind(this);
@@ -74,4 +74,4 @@ class Palatte extends Component{
 	}
 }
 
-export default Palatte;
+export default Palette;

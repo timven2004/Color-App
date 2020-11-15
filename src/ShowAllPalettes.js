@@ -2,6 +2,7 @@ import React from "react";
 import MiniPalette from "./MiniPalette.js"
 import { withStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 const styles ={
 bodyOfPage:{
@@ -52,11 +53,20 @@ nav:{
 	display:"flex",
 	width:"100%",
 	justifyContent:"space-between",
+	textTransform:"Uppercase",
+	alignItems:"center",
+
 	"& div":{
 		padding:"8px",
 		margin:"4px 30px",
 		fontSize: "1.3rem",
-		
+	},
+	"& a":{
+		textDecoration: "none",
+		padding:"8px",
+		margin:"4px 30px",
+		fontSize: "1.3rem",
+		color:"white",
 	}
 }
 
@@ -75,7 +85,7 @@ function ShowAllPalettes(props){
 		<div className={classes.container}>
 			<nav className={classes.nav}>
 				<div>React Colors</div>
-				<div>Create new palette</div>
+				<Link to="/palette/new">Create new palette</Link>
 			</nav>
 			<div className={classes.ListOfPalettesContainer}>
 				{props.existingPalettes.map((palette,index)=>(

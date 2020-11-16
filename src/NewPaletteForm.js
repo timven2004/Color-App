@@ -11,9 +11,11 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { ChromePicker } from 'react-color';
+import Button from "@material-ui/core/Button"
 
 
-const drawerWidth = 240;
+const drawerWidth = 400;
 
 const styles = theme => ({
   root: {
@@ -73,7 +75,19 @@ const styles = theme => ({
 });
 
 class NewPaletteForm extends React.Component {
-  state = {
+  
+	constructor(props){
+		super(props)
+		this.state={
+			open:true,
+			currentColor: "teal",
+			colors:["purple","#e15764"]
+		};
+		this.updateCurrentColor=this.updateCurrentColor.bind(this);
+		this.addNewColor=this.addNewColor.bind(this);
+	}
+	
+	state = {
     open: false,
   };
 
@@ -85,10 +99,18 @@ class NewPaletteForm extends React.Component {
     this.setState({ open: false });
   };
 
+updateCurrentColor(newColor){
+	this.setState({currentColor: newColor.hex})
+}
+
+addNewColor(){
+	this.setState((prevState)=>({colors: [...prevState.colors, this.state.currentColor]}))
+}
+
   render() {
     const { classes } = this.props;
     const { open } = this.state;
-
+	  
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -126,7 +148,26 @@ class NewPaletteForm extends React.Component {
               <ChevronLeftIcon />
             </IconButton>
           </div>
+
           <Divider />
+			<Typography variant="h4">
+				Design Your Palette
+			</Typography>
+			<div>
+			<Button variant="contained" color="secondary">
+				Clear Palette
+			</Button>
+			<Button variant="contained" color="primary">
+				Random Color
+			</Button>
+
+			</div>
+
+		<ChromePicker color={ this.state.currentColor } onChange={this.updateCurrentColor } onChangeComplete={this.updateCurrentColor} disableAlpha={true}/>
+			<Button variant="contained" color="primary" style={{backgroundColor: this.state.currentColor}} onClick={this.addNewColor}>
+				Add Color
+			</Button>
+
         </Drawer>
         <main
           className={classNames(classes.content, {
@@ -134,7 +175,9 @@ class NewPaletteForm extends React.Component {
           })}
         >
           <div className={classes.drawerHeader} />
-          
+			<ul>
+				{this.state.colors.map((color)=>(<li>{color}</li>))}
+			</ul>
         </main>
       </div>
     );

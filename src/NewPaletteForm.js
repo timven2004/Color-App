@@ -13,6 +13,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { ChromePicker } from 'react-color';
 import Button from "@material-ui/core/Button"
+import ColorDiv from "./ColorDiv.js"
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 
 const drawerWidth = 400;
@@ -64,6 +66,16 @@ const styles = theme => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
+	height:"calc(100vh - 64px)",
+	width:"100vw",
+	display:"flex",
+	flexFlow: "row wrap",
+	justifyContent:"flex-start",
+	alignContent:"flex-start",
+	marginTop:"64px",
+	padding:"0px",
+
+	  
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -81,10 +93,12 @@ class NewPaletteForm extends React.Component {
 		this.state={
 			open:true,
 			currentColor: "teal",
-			colors:["purple","#e15764"]
+			colors:[],
+			newName:"",
 		};
 		this.updateCurrentColor=this.updateCurrentColor.bind(this);
-		this.addNewColor=this.addNewColor.bind(this);
+		this.updateNewName=this.updateNewName.bind(this);
+		this.onSubmitForm=this.onSubmitForm.bind(this);
 	}
 	
 	state = {
@@ -103,9 +117,38 @@ updateCurrentColor(newColor){
 	this.setState({currentColor: newColor.hex})
 }
 
-addNewColor(){
-	this.setState((prevState)=>({colors: [...prevState.colors, this.state.currentColor]}))
+updateNewName(event){
+	this.setState({newName:event.target.value})
 }
+
+
+onSubmitForm(){
+	const addColor ={color: this.state.currentColor,
+					name: this.state.newName};
+	this.setState({colors: [...this.state.colors, addColor],
+				  newName: ""});
+}
+
+    componentDidMount() {
+        // custom rule will have name 'isPasswordMatch'
+        ValidatorForm.addValidationRule('UniqueColorName', (value) => {
+			let results = true;
+            (this.state.colors.forEach((element)=>{
+				if (element.name.toLowerCase()==value.toLowerCase()){results = false}
+			}))
+			return results})
+		
+		ValidatorForm.addValidationRule('UniqueColorCode', (value) => {
+			let results = true;
+            (this.state.colors.forEach((element)=>{
+				if (element.color==this.state.currentColor){results = false}
+			}))
+			return results})
+	
+	}
+
+
+
 
   render() {
     const { classes } = this.props;
@@ -164,9 +207,20 @@ addNewColor(){
 			</div>
 
 		<ChromePicker color={ this.state.currentColor } onChange={this.updateCurrentColor } onChangeComplete={this.updateCurrentColor} disableAlpha={true}/>
-			<Button variant="contained" color="primary" style={{backgroundColor: this.state.currentColor}} onClick={this.addNewColor}>
+			<ValidatorForm onSubmit={this.onSubmitForm}>
+				<TextValidator                     
+					label="New color name"
+                    onChange={this.updateNewName}
+                    name="newColorName"
+                    value={this.state.newName}
+                    validators={['required',"UniqueColorName","UniqueColorCode"]}
+                    errorMessages={['this field is required',"Color name has been used","Same color has been entered"]}
+					/>
+				<Button type="submit" variant="contained" color="primary" style={{backgroundColor: this.state.currentColor}}>
 				Add Color
-			</Button>
+				</Button>
+			</ValidatorForm>
+
 
         </Drawer>
         <main
@@ -174,10 +228,9 @@ addNewColor(){
             [classes.contentShift]: open,
           })}
         >
-          <div className={classes.drawerHeader} />
-			<ul>
-				{this.state.colors.map((color)=>(<li>{color}</li>))}
-			</ul>
+			
+				{this.state.colors.map((color)=>(<ColorDiv backgroundColor={color.color} name={color.name}/>))}
+			
         </main>
       </div>
     );

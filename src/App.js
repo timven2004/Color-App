@@ -16,6 +16,12 @@ class App extends Component{
 		this.state={
 			existingPalettes: seedColors
 		}
+		this.savePalette=this.savePalette.bind(this);
+	}
+	
+	savePalette(newPalette){
+		console.log(newPalette);
+		this.setState((prevState)=>({existingPalettes: [...prevState.existingPalettes, newPalette]}))
 	}
 	
 	render(){
@@ -28,9 +34,12 @@ class App extends Component{
 				<ShowAllPalettes existingPalettes={this.state.existingPalettes}/>
 			</Route>
 				
-			<Route exact path="/palette/new">
-				<NewPaletteForm/>
-			</Route>	
+			<Route exact path="/palette/new" 
+				render={(routeProps)=>(
+						<NewPaletteForm 
+							savePalette={this.savePalette}
+							{...routeProps}
+							/>)}/>				
 			
 			<Route exact path="/palette/:id">
 				<ShowingPalette existingPalettes={this.state.existingPalettes}/>
@@ -39,7 +48,7 @@ class App extends Component{
 				<SingleColorPalette existingPalettes={this.state.existingPalettes}/>
 			</Route>
 		
-			</Switch>
+				</Switch>
 			
 			
 		)

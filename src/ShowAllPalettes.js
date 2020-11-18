@@ -3,6 +3,7 @@ import MiniPalette from "./MiniPalette.js"
 import { withStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import Button from '@material-ui/core/Button';
 
 const styles ={
 bodyOfPage:{
@@ -86,7 +87,11 @@ function ShowAllPalettes(props){
 		<div className={classes.container}>
 			<nav className={classes.nav}>
 				<div>React Colors</div>
-				<Link to="/palette/new">Create new palette</Link>
+				<Link to="/palette/new" className>
+					<Button variant="contained" color="secondary" disableElevation>
+ 					 Create New Palette
+					</Button>
+				</Link>
 			</nav>
 			<div className={classes.ListOfPalettesContainer}>
 				{props.existingPalettes.map((palette,index)=>(

@@ -95,11 +95,13 @@ class NewPaletteForm extends React.Component {
 			currentColor: "teal",
 			colors:[],
 			newName:"",
+			newPaletteName:"",
 		};
 		this.updateCurrentColor=this.updateCurrentColor.bind(this);
 		this.updateNewName=this.updateNewName.bind(this);
 		this.onSubmitForm=this.onSubmitForm.bind(this);
-		this.handleSubmit=this.handleSubmit.bind(this);
+		this.handleNewPaletteNameSubmit=this.handleNewPaletteNameSubmit.bind(this);
+		this.handleNewPaletteNameChange=this.handleNewPaletteNameChange.bind(this);
 	}
 	
 	state = {
@@ -145,11 +147,22 @@ onSubmitForm(){
 				if (element.color==this.state.currentColor){results = false}
 			}))
 			return results})
-	
+		
+		ValidatorForm.addValidationRule('UniquePaletteName', (value) => {
+			let results = true;
+            (this.props.existingPalettes.forEach((element)=>{
+				if (element.id.toLowerCase()==this.state.newPaletteName.toLowerCase()){results = false}
+			}))
+			return results})
 	}
 
-handleSubmit(){
-	let newPaletteName = "New Test Palette";
+
+handleNewPaletteNameChange(event){
+	this.setState({newPaletteName: event.target.value});
+}
+
+handleNewPaletteNameSubmit(){
+	let newPaletteName = this.state.newPaletteName;
 	const newPalette={
 		paletteName: newPaletteName,
 		colors: this.state.colors,
@@ -188,7 +201,18 @@ handleSubmit(){
             <Typography variant="h6" color="inherit" noWrap>
               Persistent drawer
             </Typography>
-			  <Button variant="contained" color="primary" onClick={this.handleSubmit}>Save Palette</Button>
+			<ValidatorForm onSubmit={this.handleNewPaletteNameSubmit}>
+				 <TextValidator
+                    label="New Palette Name"
+                    onChange={this.handleNewPaletteNameChange}
+                    name="newPaletteName"
+                    value={this.state.newPaletteName}
+                    validators={['required',"UniquePaletteName"]}
+                    errorMessages={['this field is required',"Palette name used"]}
+                />
+
+			  <Button variant="contained" color="primary" type="Submit">Save Palette</Button>
+			</ValidatorForm>
           </Toolbar>
         </AppBar>
         <Drawer

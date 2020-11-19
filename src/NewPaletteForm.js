@@ -102,6 +102,7 @@ class NewPaletteForm extends React.Component {
 		this.onSubmitForm=this.onSubmitForm.bind(this);
 		this.handleNewPaletteNameSubmit=this.handleNewPaletteNameSubmit.bind(this);
 		this.handleNewPaletteNameChange=this.handleNewPaletteNameChange.bind(this);
+		this.deleteColor=this.deleteColor.bind(this);
 	}
 	
 	state = {
@@ -174,6 +175,9 @@ handleNewPaletteNameSubmit(){
 	this.props.history.push("/");
 }
 
+deleteColor(toBeDeleted){
+	this.setState(state=>({colors: state.colors.filter(color=>(color.name !==toBeDeleted))}))
+}
 
   render() {
     const { classes } = this.props;
@@ -267,7 +271,7 @@ handleNewPaletteNameSubmit(){
           })}
         >
 			
-				{this.state.colors.map((color)=>(<ColorDiv backgroundColor={color.color} name={color.name}/>))}
+				{this.state.colors.map((color)=>(<ColorDiv backgroundColor={color.color} name={color.name} deleteColor={this.deleteColor}/>))}
 			
         </main>
       </div>

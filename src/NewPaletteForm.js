@@ -15,19 +15,35 @@ import { ChromePicker } from 'react-color';
 import Button from "@material-ui/core/Button"
 import ColorDiv from "./ColorDiv.js"
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-
+import DraggableColorList from "./DraggableColorList.js"
+import arrayMove from 'array-move';
+import {Link} from "react-router-dom"
 
 const drawerWidth = 400;
 
 const styles = theme => ({
   root: {
     display: 'flex',
+	  "& button":{
+		margin:"2px",
+		height:"50px"
+	},
+	  "& a":{
+		  textDecoration:"none"
+	  }
   },
+	
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
-    }),
+    }
+	),
+	  display:"flex",
+	  flexDirection:"row",
+	  justifyContent: "space-between",
+	  height:"64px",
+	  alignItems:"center"
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -36,11 +52,16 @@ const styles = theme => ({
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+	    display:"flex",
+	  flexDirection:"row",
+	  justifyContent: "space-between",
+	  height:"64px"
   },
   menuButton: {
     marginLeft: 12,
     marginRight: 20,
   },
+	
   hide: {
     display: 'none',
   },
@@ -84,6 +105,50 @@ const styles = theme => ({
     }),
     marginLeft: 0,
   },
+	PaletteNameForm:{
+		display:"flex",
+		flexFlow:"row"
+	},
+	formBtn:{
+		display:"flex",
+		justifyContent:"space-between",
+		alignItems:"center",
+		flex:"1"
+	},
+	drawerContainer:{
+		display:"flex",
+		justifyContent:"center",
+		alignItems:"center",
+		flexFlow:"column",
+		height:"90%"
+	},
+	colorPicker:{
+		width:"95% !important",
+		marginTop:"2rem"
+	},
+	addColorBtn:{
+		width:"100%",
+		marginTop:"10px !important",
+		height:"100px !important",
+		fontSize:"2rem"
+	},
+	ValidatorForm:{
+		width:"90%",
+		marginTop:"10px",
+		display:"flex",
+		justifyContent:"space-between",
+		flexFlow:"column"
+	},
+	TextValidator:{
+		width:"100%",
+		marginBottom:"10px"
+	},
+	
+	twoBtns:{
+		marginTop:"10px",
+		width:"90%"
+	}
+	
 });
 
 class NewPaletteForm extends React.Component {
@@ -103,6 +168,9 @@ class NewPaletteForm extends React.Component {
 		this.handleNewPaletteNameSubmit=this.handleNewPaletteNameSubmit.bind(this);
 		this.handleNewPaletteNameChange=this.handleNewPaletteNameChange.bind(this);
 		this.deleteColor=this.deleteColor.bind(this);
+		this.onSortEnd=this.onSortEnd.bind(this);
+		this.clearColors=this.clearColors.bind(this);
+		this.addRandomColor=this.addRandomColor.bind(this);
 	}
 	
 	state = {
@@ -125,6 +193,17 @@ updateNewName(event){
 	this.setState({newName:event.target.value})
 }
 
+clearColors(){
+	this.setState({colors:[]})
+}
+
+addRandomColor(){
+	let randomCode = `#${Math.floor(16777216*Math.random()).toString(16).padStart(6,"0")}`;
+	console.log(randomCode);
+	this.setState({currentColor: randomCode,
+				  newName: randomCode})
+	
+}
 
 onSubmitForm(){
 	const addColor ={color: this.state.currentColor,
@@ -179,6 +258,12 @@ deleteColor(toBeDeleted){
 	this.setState(state=>({colors: state.colors.filter(color=>(color.name !==toBeDeleted))}))
 }
 
+onSortEnd = ({oldIndex, newIndex}) => {
+    this.setState(({colors}) => ({
+      colors: arrayMove(colors, oldIndex, newIndex),
+    }));
+  };
+
   render() {
     const { classes } = this.props;
     const { open } = this.state;
@@ -202,10 +287,13 @@ deleteColor(toBeDeleted){
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              Persistent drawer
+            
+          </Toolbar>
+			<div className={classes.formBtn}>
+			<Typography variant="h6" color="inherit" noWrap>
+              Create your palette
             </Typography>
-			<ValidatorForm onSubmit={this.handleNewPaletteNameSubmit}>
+			<ValidatorForm className={classes.PaletteNameForm}onSubmit={this.handleNewPaletteNameSubmit}>
 				 <TextValidator
                     label="New Palette Name"
                     onChange={this.handleNewPaletteNameChange}
@@ -214,10 +302,12 @@ deleteColor(toBeDeleted){
                     validators={['required',"UniquePaletteName"]}
                     errorMessages={['this field is required',"Palette name used"]}
                 />
-
 			  <Button variant="contained" color="primary" type="Submit">Save Palette</Button>
+			<Link to="/">
+			 <Button variant="contained" color="secondary" type="Submit">Go Back</Button>
+			</Link>
 			</ValidatorForm>
-          </Toolbar>
+			</div>
         </AppBar>
         <Drawer
           className={classes.drawer}
@@ -235,21 +325,21 @@ deleteColor(toBeDeleted){
           </div>
 
           <Divider />
+			<div className={classes.drawerContainer}>
 			<Typography variant="h4">
 				Design Your Palette
 			</Typography>
-			<div>
-			<Button variant="contained" color="secondary">
+			<div className={classes.twoBtns}>
+			<Button variant="contained" color="secondary" onClick={this.clearColors} style={{width: "100%"}}>
 				Clear Palette
 			</Button>
-			<Button variant="contained" color="primary">
+			<Button variant="contained" color="primary" onClick={this.addRandomColor} style={{width: "100%"}}>
 				Random Color
 			</Button>
+				</div>
 
-			</div>
-
-		<ChromePicker color={ this.state.currentColor } onChange={this.updateCurrentColor } onChangeComplete={this.updateCurrentColor} disableAlpha={true}/>
-			<ValidatorForm onSubmit={this.onSubmitForm}>
+		<ChromePicker color={ this.state.currentColor } onChange={this.updateCurrentColor } onChangeComplete={this.updateCurrentColor} disableAlpha={true} className={classes.colorPicker}/>
+			<ValidatorForm onSubmit={this.onSubmitForm} className={classes.ValidatorForm}>
 				<TextValidator                     
 					label="New color name"
                     onChange={this.updateNewName}
@@ -257,12 +347,17 @@ deleteColor(toBeDeleted){
                     value={this.state.newName}
                     validators={['required',"UniqueColorName","UniqueColorCode"]}
                     errorMessages={['this field is required',"Color name has been used","Same color has been entered"]}
+					className={classes.TextValidator}
 					/>
-				<Button type="submit" variant="contained" color="primary" style={{backgroundColor: this.state.currentColor}}>
-				Add Color
+				<Button type="submit" 
+					variant="contained" 
+					color="primary" 
+					style={this.state.colors.length>=20? {backgroundColor:"grey"}: {backgroundColor: this.state.currentColor}} disabled={this.state.colors.length>=20}
+					className={classes.addColorBtn}>
+					{this.state.colors.length>=20? "Palette full": "Add Color"}
 				</Button>
 			</ValidatorForm>
-
+			</div>
 
         </Drawer>
         <main
@@ -271,8 +366,12 @@ deleteColor(toBeDeleted){
           })}
         >
 			
-				{this.state.colors.map((color)=>(<ColorDiv backgroundColor={color.color} name={color.name} deleteColor={this.deleteColor}/>))}
-			
+			{/*{this.state.colors.map((color)=>(<ColorDiv backgroundColor={color.color} name={color.name} deleteColor={this.deleteColor}/>))}*/}
+			<DraggableColorList 
+				colorList={this.state.colors} 
+				deleteColor={this.deleteColor}
+				axis="xy"
+				onSortEnd={this.onSortEnd}/>
         </main>
       </div>
     );

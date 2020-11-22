@@ -18,6 +18,8 @@ import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import DraggableColorList from "./DraggableColorList.js"
 import arrayMove from 'array-move';
 import {Link} from "react-router-dom"
+import PaletteMetaForm from "./PaletteMetaForm.js"
+
 
 const drawerWidth = 400;
 
@@ -147,6 +149,11 @@ const styles = theme => ({
 	twoBtns:{
 		marginTop:"10px",
 		width:"90%"
+	},
+	
+	saveAndGoBackButton:{
+		display:"flex",
+		
 	}
 	
 });
@@ -161,6 +168,7 @@ class NewPaletteForm extends React.Component {
 			colors:[],
 			newName:"",
 			newPaletteName:"",
+			PaletteMetaFormOpen:false,
 		};
 		this.updateCurrentColor=this.updateCurrentColor.bind(this);
 		this.updateNewName=this.updateNewName.bind(this);
@@ -231,7 +239,7 @@ onSubmitForm(){
 		ValidatorForm.addValidationRule('UniquePaletteName', (value) => {
 			let results = true;
             (this.props.existingPalettes.forEach((element)=>{
-				if (element.id.toLowerCase()==this.state.newPaletteName.toLowerCase()){results = false}
+				if (element.paletteName.toLowerCase()==this.state.newPaletteName.toLowerCase()){results = false}
 			}))
 			return results})
 	}
@@ -242,6 +250,7 @@ handleNewPaletteNameChange(event){
 }
 
 handleNewPaletteNameSubmit(){
+	this.setState({PaletteMetaFormOpen: !this.state.PaletteMetaFormOpen})
 	let newPaletteName = this.state.newPaletteName;
 	const newPalette={
 		paletteName: newPaletteName,
@@ -252,6 +261,7 @@ handleNewPaletteNameSubmit(){
 	}
 	this.props.savePalette(newPalette);
 	this.props.history.push("/");
+	
 }
 
 deleteColor(toBeDeleted){
@@ -293,7 +303,7 @@ onSortEnd = ({oldIndex, newIndex}) => {
 			<Typography variant="h6" color="inherit" noWrap>
               Create your palette
             </Typography>
-			<ValidatorForm className={classes.PaletteNameForm}onSubmit={this.handleNewPaletteNameSubmit}>
+			{/*<ValidatorForm className={classes.PaletteNameForm} onSubmit={this.handleNewPaletteNameSubmit}>
 				 <TextValidator
                     label="New Palette Name"
                     onChange={this.handleNewPaletteNameChange}
@@ -302,11 +312,20 @@ onSortEnd = ({oldIndex, newIndex}) => {
                     validators={['required',"UniquePaletteName"]}
                     errorMessages={['this field is required',"Palette name used"]}
                 />
-			  <Button variant="contained" color="primary" type="Submit">Save Palette</Button>
+				<Button variant="contained" color="primary" type="Submit">Save Palette</Button>*/}
+			<div className={classes.saveAndGoBackButton}>
+			<PaletteMetaForm 
+					existingPalettes={this.props.existingPalettes}
+					handleNewPaletteNameSubmit={this.handleNewPaletteNameSubmit}
+					handleNewPaletteNameChange={this.handleNewPaletteNameChange}
+					history={this.props.history}
+					newPaletteName={this.state.newPaletteName}
+/>
 			<Link to="/">
-			 <Button variant="contained" color="secondary" type="Submit">Go Back</Button>
+			 <Button variant="contained" color="secondary">Go Back</Button>
 			</Link>
-			</ValidatorForm>
+			</div>
+			{/*</ValidatorForm >*/}
 			</div>
         </AppBar>
         <Drawer

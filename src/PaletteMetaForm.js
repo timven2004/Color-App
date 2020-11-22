@@ -8,6 +8,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core/styles';
+import 'emoji-mart/css/emoji-mart.css';
+import { Picker } from 'emoji-mart';
 
 
 const styles = {	
@@ -18,9 +20,13 @@ const styles = {
 	},
 	lineBreak:{
 		marginTop:"8px",
-		"& button":{
-			marginLeft:"-8px",
+		marginLeft:"-8px",
+	enterButton:{
+			marginLeft:"10px !important"
 		}
+	},
+	textField:{
+		length:"100%"
 	}
 }
 
@@ -72,7 +78,7 @@ class PaletteMetaForm extends React.Component {
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please enter palette name
+            Please enter palette name, make sure it is unique
           </DialogContentText>
          <ValidatorForm className={classes.PaletteNameForm} onSubmit={this.props.handleNewPaletteNameSubmit}>
 				 <TextValidator
@@ -82,12 +88,16 @@ class PaletteMetaForm extends React.Component {
                     value={this.props.newPaletteName}
                     validators={['required',"UniquePaletteName"]}
                     errorMessages={['this field is required',"Palette name used"]}
+
                 />
+			 
+			 <Picker set='apple' />
+
 		<div className={classes.lineBreak}>
 		 <Button onClick={this.handleClose} color="primary">
             Cancel
           </Button>
-          <Button type="Submit" color="primary">
+          <Button type="Submit" variant="contained" color="primary" className={classes.enterButton}>
             Enter
           </Button>
 		</div>

@@ -27,6 +27,14 @@ const styles = {
 	},
 	textField:{
 		length:"100%"
+	},
+	emojiMart:{
+		margin:"10px 0px",
+		height:"50%"
+		
+	},
+	emojiDisplay:{
+		margin: "10px 0px"
 	}
 }
 
@@ -75,10 +83,11 @@ class PaletteMetaForm extends React.Component {
         Save Palette
       </Button>
       <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add New Palette</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please enter palette name, make sure it is unique
+            Please enter palette name, make sure it is unique. 
+			<br/>And Also pick an emoji.
           </DialogContentText>
          <ValidatorForm className={classes.PaletteNameForm} onSubmit={this.props.handleNewPaletteNameSubmit}>
 				 <TextValidator
@@ -90,8 +99,10 @@ class PaletteMetaForm extends React.Component {
                     errorMessages={['this field is required',"Palette name used"]}
 
                 />
-			 
-			 <Picker set='apple' />
+			 	<div className={classes.emojiDisplay}>Slelected Emoji: {this.props.selectedEmoji}</div>
+			 		<div className={classes.emojiMart}>
+			 		<Picker set='apple' title='Pick your emoji…'onSelect={this.props.addEmoji}/>
+					</div>
 
 		<div className={classes.lineBreak}>
 		 <Button onClick={this.handleClose} color="primary">
@@ -106,7 +117,9 @@ class PaletteMetaForm extends React.Component {
         <DialogActions>
           
         </DialogActions>
+
       </Dialog>
+	
     </div>
   );
 }

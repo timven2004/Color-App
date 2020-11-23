@@ -169,6 +169,7 @@ class NewPaletteForm extends React.Component {
 			newName:"",
 			newPaletteName:"",
 			PaletteMetaFormOpen:false,
+			selectedEmoji:""
 		};
 		this.updateCurrentColor=this.updateCurrentColor.bind(this);
 		this.updateNewName=this.updateNewName.bind(this);
@@ -179,6 +180,7 @@ class NewPaletteForm extends React.Component {
 		this.onSortEnd=this.onSortEnd.bind(this);
 		this.clearColors=this.clearColors.bind(this);
 		this.addRandomColor=this.addRandomColor.bind(this);
+		this.addEmoji=this.addEmoji.bind(this);
 	}
 	
 	state = {
@@ -256,7 +258,7 @@ handleNewPaletteNameSubmit(){
 		paletteName: newPaletteName,
 		colors: this.state.colors,
 		id: newPaletteName.toLowerCase().replace(" ","-"),
-	    emoji: "🥰",
+	    emoji: this.state.selectedEmoji,
 
 	}
 	this.props.savePalette(newPalette);
@@ -273,6 +275,11 @@ onSortEnd = ({oldIndex, newIndex}) => {
       colors: arrayMove(colors, oldIndex, newIndex),
     }));
   };
+
+addEmoji(selected){
+	console.log(selected)
+	this.setState({selectedEmoji: selected.native})
+}
 
   render() {
     const { classes } = this.props;
@@ -320,6 +327,8 @@ onSortEnd = ({oldIndex, newIndex}) => {
 					handleNewPaletteNameChange={this.handleNewPaletteNameChange}
 					history={this.props.history}
 					newPaletteName={this.state.newPaletteName}
+					addEmoji={this.addEmoji}
+					selectedEmoji={this.state.selectedEmoji}
 />
 			<Link to="/">
 			 <Button variant="contained" color="secondary">Go Back</Button>

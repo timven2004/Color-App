@@ -125,13 +125,13 @@ const styles = theme => ({
 		height:"90%"
 	},
 	colorPicker:{
-		width:"95% !important",
-		marginTop:"2rem"
+		width:"90% !important",
+		marginTop:"1rem"
 	},
 	addColorBtn:{
 		width:"100%",
 		marginTop:"10px !important",
-		height:"100px !important",
+		height:"90px !important",
 		fontSize:"2rem"
 	},
 	ValidatorForm:{
@@ -354,7 +354,7 @@ addEmoji(selected){
 
           <Divider />
 			<div className={classes.drawerContainer}>
-			<Typography variant="h4">
+			<Typography variant="h5">
 				Design Your Palette
 			</Typography>
 			<div className={classes.twoBtns}>

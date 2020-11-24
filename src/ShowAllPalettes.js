@@ -14,6 +14,7 @@ bodyOfPage:{
 	width:"100vw",
 	height:"100%",
 	minHeight:"100vh",
+	maxWidth: "100%",
 	backgroundImage: "url('/backgroundPicture.jpg')",
 	backgroundColor: "grey",
 	backgroundPosition: "center",
@@ -30,7 +31,7 @@ container: {
 	alignItems:"center",
 	width: "66.6%",
 	maxWidth:"900px",
-	marginTop:"20px",
+	marginTop:"0px",
 },
 eachItem:{
 	width: "230px",
@@ -70,7 +71,15 @@ nav:{
 		fontSize: "1.3rem",
 		color:"white",
 	}
-}
+},
+	twoButtons:{
+		display: "flex",
+		"& button":{
+			marginLeft:"10px",
+			maxHeight:"40px"
+		},
+		alignItems:"center"
+	}
 
 }
 
@@ -80,18 +89,23 @@ function ShowAllPalettes(props){
 	
 	const {classes} = props;
 	const history = useHistory();
-
+	
 	return(
 	<div className={classes.bodyOfPage}>
 		
 		<div className={classes.container}>
 			<nav className={classes.nav}>
 				<div>React Colors</div>
-				<Link to="/palette/new" className>
+				<div className={classes.twoButtons}>
+				<Link to="/palette/new" >
 					<Button variant="contained" color="secondary" disableElevation>
  					 Create New Palette
 					</Button>
 				</Link>
+					<Button variant="contained" color="primary" disableElevation onClick={props.seedingPalettes}>
+ 					 Reset Palettes
+					</Button>
+				</div>
 			</nav>
 			<div className={classes.ListOfPalettesContainer}>
 				{props.existingPalettes.map((palette,index)=>(

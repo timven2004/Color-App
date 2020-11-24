@@ -12,16 +12,28 @@ import NewPaletteForm from "./NewPaletteForm.js";
 
 class App extends Component{
 	constructor(props){
-		super(props)
+		super(props);
+		const savedPalettes = JSON.parse(window.localStorage.getItem("existingPalettes"));
 		this.state={
-			existingPalettes: seedColors
+			existingPalettes: savedPalettes||seedColors
 		}
 		this.savePalette=this.savePalette.bind(this);
+		this.seedingPalettes=this.seedingPalettes.bind(this);
+		
+this.syncLocalStorage=this.syncLocalStorage.bind(this);
 	}
 	
 	savePalette(newPalette){
 		console.log(newPalette);
-		this.setState((prevState)=>({existingPalettes: [...prevState.existingPalettes, newPalette]}))
+		this.setState((prevState)=>({existingPalettes: [...prevState.existingPalettes, newPalette]}),this.syncLocalStorage)
+	}
+	
+	seedingPalettes(){
+this.setState({existingPalettes:seedColors},this.syncLocalStorage);
+	}
+	
+	syncLocalStorage(){
+		window.localStorage.setItem("existingPalettes",JSON.stringify(this.state.existingPalettes))
 	}
 	
 	render(){
@@ -31,7 +43,7 @@ class App extends Component{
 			
 			<Switch>
 			<Route exact path="/">
-				<ShowAllPalettes existingPalettes={this.state.existingPalettes}/>
+				<ShowAllPalettes existingPalettes={this.state.existingPalettes} seedingPalettes={this.seedingPalettes}/>
 			</Route>
 				
 			<Route exact path="/palette/new" 

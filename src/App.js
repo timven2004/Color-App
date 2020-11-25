@@ -19,8 +19,12 @@ class App extends Component{
 		}
 		this.savePalette=this.savePalette.bind(this);
 		this.seedingPalettes=this.seedingPalettes.bind(this);
-		
-this.syncLocalStorage=this.syncLocalStorage.bind(this);
+		this.syncLocalStorage=this.syncLocalStorage.bind(this);
+		this.deletePalette = this.deletePalette.bind(this);
+	}
+	
+	deletePalette(id){
+		this.setState(st=>({existingPalettes: st.existingPalettes.filter(palette=>(palette.id!==id))}))
 	}
 	
 	savePalette(newPalette){
@@ -43,7 +47,7 @@ this.setState({existingPalettes:seedColors},this.syncLocalStorage);
 			
 			<Switch>
 			<Route exact path="/">
-				<ShowAllPalettes existingPalettes={this.state.existingPalettes} seedingPalettes={this.seedingPalettes}/>
+				<ShowAllPalettes existingPalettes={this.state.existingPalettes} seedingPalettes={this.seedingPalettes} deletePalette={this.deletePalette}/>
 			</Route>
 				
 			<Route exact path="/palette/new" 

@@ -17,6 +17,9 @@ const styles = {
 			color:"white",
 			transition:"0.3s",
 			transform:"scale(1.4)"
+		},
+		"@media (max-width: 900px)":{
+			width:"100%"
 		}
 	},
 	boxContent:{

@@ -1,18 +1,11 @@
 import React from "react";
 // import "./MiniPalette.css"
 import { withStyles } from '@material-ui/core/styles';
+import DeleteIcon from "@material-ui/icons/Delete"
 
 const styles ={
-MiniPalette: {
-	width: "95%",
-	height: "95%",
-	display: "flex",
-	flexFlow: "column",
-	margin:"5px",
-	alignContent: "flex-start",
-	color: "black",
-	cursor: "pointer",
-},
+
+	
 
 tinyColors: {
 	width:"20%",
@@ -41,7 +34,39 @@ colorFlakes:{
 	width:"100%",
 	flexGrow:"1",
 	backgroundColor:"grey",
-}
+},
+deleteButton:{
+		position:"absolute",
+		display:"inline",
+		right:"5px",
+		top:"3px",
+		opacity:"0",
+		zIndex:"10",
+		backgroundColor:"#eb3d30",
+		padding:"5px",
+		transition:"0.5s",
+		borderRadius:"3px"
+	},
+	
+MiniPalette: {
+	width: "95%",
+	height: "95%",
+	display: "flex",
+	flexFlow: "column",
+	margin:"5px",
+	alignContent: "flex-start",
+	color: "black",
+	cursor: "pointer",
+	position:"relative",
+	"&:hover":{
+		"& svg":{
+			opacity:"0.9"
+		}
+		
+	},
+	transition:"0.4s"
+},
+	
 }
 
 
@@ -52,8 +77,14 @@ function MiniPalette(props){
 			return (<div className={classes.tinyColors} style={{background: color.color}}></div>)
 		})
 	
+	const deletePaletteClicked = (e) => {
+		e.stopPropagation();
+		props.deletePalette(props.id)
+	}
+	
 	return(
 		<div className={classes.MiniPalette} onClick={props.handleClick}>
+			<DeleteIcon className={classes.deleteButton} onClick={deletePaletteClicked}/>
 			<div className={classes.colorFlakes}>{colorBoxes}</div>
 			<div className={classes.p1}>
 				<span className={classes.span1}>{props.palette.paletteName}</span> 

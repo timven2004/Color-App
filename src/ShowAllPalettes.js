@@ -43,12 +43,13 @@ eachItem:{
 	backgroundColor:"white",
 	border:"1px black solid",
 	borderRadius:"5px",
-	margin:"25px"
+	margin:"25px",
+	transition:"0.4s"
 },
 ListOfPalettesContainer:{
 	display:"flex",
 	flexFlow: "row wrap",
-	justifyContent:"space-between",
+	justifyContent:"flex-start",
 
 },
 
@@ -79,7 +80,8 @@ nav:{
 			maxHeight:"40px"
 		},
 		alignItems:"center"
-	}
+	},
+	
 
 }
 
@@ -89,6 +91,7 @@ function ShowAllPalettes(props){
 	
 	const {classes} = props;
 	const history = useHistory();
+	
 	
 	return(
 	<div className={classes.bodyOfPage}>
@@ -110,8 +113,7 @@ function ShowAllPalettes(props){
 			<div className={classes.ListOfPalettesContainer}>
 				{props.existingPalettes.map((palette,index)=>(
 				<div className={classes.eachItem}>
-				<MiniPalette palette={palette} handleClick={()=>(history.push(`/palette/${palette.id}`)
-)}/>
+				<MiniPalette palette={palette} id={palette.id} handleClick={()=>(history.push(`/palette/${palette.id}`))} deletePalette={props.deletePalette} />
 				</div>))}
 			</div>
 		</div>

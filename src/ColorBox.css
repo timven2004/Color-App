@@ -13,7 +13,10 @@
 }
 
 @media (max-width:500px){
-	.ColorBox{width:100%}
+	.ColorBox{
+		width:100%;
+		height:20%;
+	}
 }
 
 

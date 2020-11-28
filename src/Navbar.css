@@ -10,6 +10,7 @@
 	align-items:center;
 	justify-content:space-between;
 	height:60px;
+	flex-flow:wrap;
 }
 
 
@@ -39,4 +40,9 @@
 
 .select-container{
 	margin-right:20px;
+}
+
+
+@media (max-width:900px){
+	.leftsideElement{flex-direction:column}
 }

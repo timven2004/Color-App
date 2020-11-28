@@ -20,10 +20,26 @@ const styles={
 		"& .ColorBox":{
 			width:"20%",
 			height:"50%",
+			"@media (max-width:900px)":{
+				width:"50%",
+				height:"30%"
+			},
+			"@media (max-width:500px)":{
+				width:"100%",
+				height:"20%"
+			}
 		},
 		"& .goBack":{
 			width:"20%",
 			height:"50%",
+			"@media (max-width:900px)":{
+				width:"50%",
+				height:"30%"
+			},
+			"@media (max-width:500px)":{
+				width:"100%",
+				height:"20%"
+			}
 		}
 	},
 	wholePageContainer:{
@@ -31,6 +47,15 @@ const styles={
 		height:"100vh",
 		display: "flex",
 		flexFlow:"column",
+	},
+	
+	Colordiv:{
+		"@media (max-width:900px)":{
+			width:"50%"
+		},
+		"@media (max-width:500px)":{
+			width:"100%"
+		}
 	},
 	
 	goBack:{
@@ -50,7 +75,15 @@ const styles={
 			textDecoration:"none",
 			color:"white",
 
-		}
+		},
+		"@media (max-width:900px)":{
+				width:"50%",
+				height:"30%"
+			},
+			"@media (max-width:500px)":{
+				width:"100%",
+				height:"20%"
+			}
 	}
 }
 
